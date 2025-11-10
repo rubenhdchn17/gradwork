@@ -171,3 +171,30 @@
     font-size: 1.3rem;
   }
 }
+
+.dropdown {
+  border: 1px solid var(--gray-medium);
+  background: #fff;
+  border-radius: 6px;
+  margin-top: 4px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  max-height: 180px;
+  overflow-y: auto;
+  animation: fadeIn 0.15s ease;
+}
+
+.dropdownItem {
+  padding: 0.65rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdownItem:hover {
+  background: #fff3f3;
+  color: var(--red-primary);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

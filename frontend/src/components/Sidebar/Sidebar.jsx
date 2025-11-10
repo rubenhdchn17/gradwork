@@ -19,45 +19,52 @@ export default function Sidebar() {
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
-    // 🔹 Emitimos evento para MainLayout
     window.dispatchEvent(new CustomEvent("sidebarToggle", { detail: !isOpen }));
   };
 
-  const menuItems = [
-    // COORDINADOR
-    { name: "Dashboard", icon: <FaHome />, path: "/dashboard" },
-    { name: "Propuesta", icon: <FaFileAlt />, path: "/propuesta" },
-    { name: "Anteproyecto", icon: <FaClipboardCheck />, path: "/anteproyecto" },
-    { name: "Asignar Asesor", icon: <FaUserCheck />, path: "/asignar-asesor" },
-    { name: "Asignar Evaluador", icon: <FaUsers />, path: "/asignar-evaluador" },
-    { name: "Evaluación", icon: <FaClipboardCheck />, path: "/evaluacion" },
+  const user = JSON.parse(localStorage.getItem("user"));
+  const rol = user?.rol;
 
-    // ESTUDIANTE
-    { name: "Mis Proyectos", icon: <FaFolderOpen />, path: "/mis-proyectos" },
+  const menus = {
+    coordinador: [
+      { name: "Dashboard", icon: <FaHome />, path: "/coordinator/dashboard" },
+      { name: "Asignar Asesor", icon: <FaUserCheck />, path: "/coordinator/asignar" },
+      { name: "Asignar Evaluador", icon: <FaUsers />, path: "/coordinator/asignar-evaluador" },
+      { name: "Anteproyecto", icon: <FaClipboardCheck />, path: "/coordinator/anteproyecto" },
+      { name: "Proyectos", icon: <FaFolderOpen />, path: "/coordinator/proyectos" },
+    ],
+    estudiante: [
+      { name: "Dashboard", icon: <FaHome />, path: "/student/dashboard" },
+      { name: "Propuesta", icon: <FaFileAlt />, path: "/student/propuesta" },
+      { name: "Mis Proyectos", icon: <FaFolderOpen />, path: "/student/mis-proyectos" },
+    ],
+    asesor: [
+      { name: "Dashboard", icon: <FaHome />, path: "/advisor/dashboard" },
+      { name: "Asignar", icon: <FaUserCheck />, path: "/advisor/asignar" },
+    ],
+    evaluador: [
+      { name: "Dashboard", icon: <FaHome />, path: "/evaluator/dashboard" },
+      { name: "Proyectos", icon: <FaTasks />, path: "/evaluator/proyectos" },
+      { name: "Evaluar", icon: <FaClipboardCheck />, path: "/evaluator/evaluar" },
+    ],
+  };
 
-    // ASESOR
-    { name: "Proyectos Asignados", icon: <FaTasks />, path: "/proyectos-asignados" },
-    { name: "Revisión Proyecto", icon: <FaFileAlt />, path: "/proyecto/:id" },
-
-    // EVALUADOR
-    { name: "Proyectos a Evaluar", icon: <FaTasks />, path: "/evaluador" },
-  ];
+  const menuItems = menus[rol] || [];
 
   const handleLogout = () => {
-    navigate("/"); // limpiar sesión o token
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   return (
     <div className={`${styles.sidebar} ${isOpen ? styles.open : styles.closed}`}>
-      {/* 🔹 Botón toggle siempre visible */}
       <div className={styles.toggleWrapper}>
         <button className={styles.toggleBtn} onClick={toggleSidebar}>
           <FaBars />
         </button>
         {isOpen && <h1 className={styles.logo}>GRADWORK</h1>}
       </div>
-
-
       <nav className={styles.menu}>
         {menuItems.map((item) => (
           <NavLink
@@ -72,7 +79,6 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
-
       <div className={styles.bottomSection}>
         <button onClick={handleLogout} className={styles.logoutBtn}>
           <FaSignOutAlt />
