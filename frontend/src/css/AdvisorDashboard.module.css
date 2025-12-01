@@ -1,0 +1,143 @@
+.container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.headerBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  color: #666;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.cardNumber {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.tableSection {
+  margin-top: 8px;
+}
+
+.tableHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.tableHeader h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.tableSubtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.projectTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.projectTable thead {
+  background: #f9fafb;
+}
+
+.projectTable th,
+.projectTable td {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.projectTable th {
+  font-weight: 600;
+  color: #4b5563;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.projectTable tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.propuesta {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.en_revision {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.aprobado {
+  background: #ecfdf5;
+  color: #15803d;
+}
+
+.reviewButton {
+  padding: 6px 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.reviewButton:hover {
+  background: #1e40af;
+}

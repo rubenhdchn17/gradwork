@@ -1,58 +1,92 @@
-import React from 'react';
-import styles from '../../css/AssignEvaluatorWireframe.module.css';
+import React, { useEffect, useState } from "react";
+import AssignEvaluatorWireframe from "./AssignEvaluatorWireframe.jsx";
 
-export function AssignEvaluatorWireframe({ project }) {
+import {
+    fetchEvaluadores,
+    fetchProyectosSinEvaluador,
+    asignarEvaluador,
+} from "../../services/coordinatorService";
+
+export default function AssignEvaluator() {
+    const [proyectoSearch, setProyectoSearch] = useState("");
+    const [evaluadorSearch, setEvaluadorSearch] = useState("");
+
+    const [filteredProyectos, setFilteredProyectos] = useState([]);
+    const [filteredEvaluadores, setFilteredEvaluadores] = useState([]);
+
+    const [selectedProyecto, setSelectedProyecto] = useState(null);
+    const [selectedEvaluador, setSelectedEvaluador] = useState(null);
+
+    useEffect(() => {
+        if (proyectoSearch.trim() === "") {
+            setFilteredProyectos([]);
+            return;
+        }
+
+        fetchProyectosSinEvaluador({ q: proyectoSearch })
+            .then(setFilteredProyectos)
+            .catch(() => setFilteredProyectos([]));
+    }, [proyectoSearch]);
+
+    useEffect(() => {
+        if (evaluadorSearch.trim() === "") {
+            setFilteredEvaluadores([]);
+            return;
+        }
+
+        fetchEvaluadores({ q: evaluadorSearch })
+            .then(setFilteredEvaluadores)
+            .catch(() => setFilteredEvaluadores([]));
+    }, [evaluadorSearch]);
+
+
+    function selectProyecto(p) {
+        setSelectedProyecto(p);
+        setProyectoSearch(p.titulo);
+        setFilteredProyectos([]);
+    }
+
+    function selectEvaluador(e) {
+        setSelectedEvaluador(e);
+        setEvaluadorSearch(e.nombre + " — " + e.correo);
+        setFilteredEvaluadores([]);
+    }
+
+    async function handleSubmit() {
+        if (!selectedProyecto || !selectedEvaluador) {
+            alert("Debes seleccionar proyecto y evaluador");
+            return;
+        }
+
+        try {
+            await asignarEvaluador({
+                proyecto_id: selectedProyecto.id,
+                evaluador_id: selectedEvaluador.id,
+            });
+
+            alert("Evaluador asignado correctamente");
+            setSelectedProyecto(null);
+            setSelectedEvaluador(null);
+            setProyectoSearch("");
+            setEvaluadorSearch("");
+        } catch {
+            alert("Error al asignar evaluador");
+        }
+    }
+
     return (
-        <div className={styles.container}>
-            <header className={styles.header}>
-                <h1 className={styles.title}>Asignación de Evaluador</h1>
-            </header>
+        <AssignEvaluatorWireframe
+            proyectoSearch={proyectoSearch}
+            setProyectoSearch={setProyectoSearch}
+            filteredProyectos={filteredProyectos}
+            selectProyecto={selectProyecto}
 
-            <div className={styles.formBox}>
-                <div className={styles.field}>
-                    <label>Proyecto</label>
-                    <input
-                        readOnly
-                        value={project ?? 'Selecciona un proyecto'}
-                        className={`${styles.input} ${styles.readOnly}`}
-                    />
-                </div>
+            evaluadorSearch={evaluadorSearch}
+            setEvaluadorSearch={setEvaluadorSearch}
+            filteredEvaluadores={filteredEvaluadores}
+            selectEvaluador={selectEvaluador}
 
-                <div className={styles.field}>
-                    <label>Evaluador (seleccionar)</label>
-                    <select className={styles.select}>
-                        <option>Dr. Pérez - perez@uni.edu.co</option>
-                        <option>Dra. Ruiz - ruiz@uni.edu.co</option>
-                    </select>
-                </div>
-
-                <div className={styles.field}>
-                    <label>Correo institucional</label>
-                    <input
-                        placeholder="evaluador@uni.edu.co"
-                        className={styles.input}
-                    />
-                </div>
-
-                <div className={styles.field}>
-                    <label>Observaciones</label>
-                    <textarea
-                        className={`${styles.input} ${styles.textarea}`}
-                        placeholder="Escribe comentarios o detalles relevantes..."
-                    />
-                </div>
-
-                <div className={styles.fileRow}>
-                    <input type="file" className={styles.fileInput} />
-                    <span className={styles.fileLabel}>Adjuntar formato (opcional)</span>
-                </div>
-
-                <div className={styles.actions}>
-                    <button className={styles.submitButton}>Asignar</button>
-                </div>
-            </div>
-        </div>
+            handleSubmit={handleSubmit}
+        />
     );
 }
-
-export default AssignEvaluatorWireframe;

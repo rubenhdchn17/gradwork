@@ -17,7 +17,7 @@ export function getDashboardInfo(req, res, userId) {
 
   connection.query(statsQuery, [userId, userId], (err, result) => {
     if (err) {
-      console.error("❌ Error obteniendo estadísticas:", err);
+      console.error("Error obteniendo estadísticas:", err);
       res.writeHead(500, { "Content-Type": "application/json" });
       return res.end(
         JSON.stringify({ error: "Error consultando estadísticas" })
@@ -39,7 +39,7 @@ export function getDashboardInfo(req, res, userId) {
 }
 
 export function getProyectosPorEstudiante(req, res, userId) {
-  console.log("🎯 getProyectosPorEstudiante():", userId);
+  console.log("getProyectosPorEstudiante():", userId);
 
   const sql = `
     SELECT 
@@ -188,7 +188,7 @@ export function crearPropuesta(req, res) {
 }
 
 export function actualizarArchivo(req, res, proyectoId) {
-  console.log("📤 [actualizarArchivo] Iniciando actualización para ID:", proyectoId);
+  console.log("[actualizarArchivo] Iniciando actualización para ID:", proyectoId);
 
   const uploadsDir = path.resolve("./uploads");
   if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
@@ -208,7 +208,7 @@ export function actualizarArchivo(req, res, proyectoId) {
     console.log("[actualizarArchivo] Form.parse callback ejecutado.");
 
     if (err) {
-      console.error("❌ [actualizarArchivo] Error parseando actualización:", err);
+      console.error("[actualizarArchivo] Error parseando actualización:", err);
       res.writeHead(400, { "Content-Type": "application/json" });
       return res.end(JSON.stringify({ error: "Error en el archivo enviado" }));
     }
@@ -321,6 +321,56 @@ export function actualizarArchivo(req, res, proyectoId) {
           }
         );
       }
+    );
+  });
+}
+
+export function getProyectoPorId(req, res, proyectoId) {
+  const sql = `
+    SELECT 
+      p.id,
+      p.titulo,
+      p.descripcion,
+      p.estado,
+      p.archivo_path,
+      p.archivo_nombre,
+      u.nombre AS estudiante,
+      c.nombre AS colaborador
+    FROM proyectos p
+    LEFT JOIN usuarios u ON u.id = p.estudiante_id
+    LEFT JOIN usuarios c ON c.id = p.colaborador_id
+    WHERE p.id = ?
+    LIMIT 1
+  `;
+
+  connection.query(sql, [proyectoId], (err, rows) => {
+    if (err) {
+      console.error("Error obteniendo proyecto:", err);
+      res.writeHead(500, { "Content-Type": "application/json" });
+      return res.end(JSON.stringify({ error: "Error consultando proyecto" }));
+    }
+
+    if (rows.length === 0) {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      return res.end(JSON.stringify({ error: "Proyecto no encontrado" }));
+    }
+
+    const p = rows[0];
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        id: p.id,
+        titulo: p.titulo,
+        descripcion: p.descripcion,
+        estado: p.estado,
+        archivo_path: p.archivo_path,
+        archivo_nombre: p.archivo_nombre,
+        integrantes: [
+          p.estudiante,
+          ...(p.colaborador ? [p.colaborador] : [])
+        ]
+      })
     );
   });
 }

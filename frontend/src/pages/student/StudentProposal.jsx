@@ -1,26 +1,20 @@
-// frontend/src/pages/student/StudentProposal.jsx
 import React, { useState } from "react";
 import styles from "../../css/StudentProposalWireframe.module.css";
 import { submitProposal, buscarColaboradorPorCorreo } from "../../services/studentService";
 
 export default function StudentProposal() {
-  const user = JSON.parse(localStorage.getItem("user")); // { id, nombre, rol }
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [titulo, setTitulo] = useState("");
   const [programa, setPrograma] = useState("Ingeniería de Sistemas");
   const [opcion, setOpcion] = useState("monografia");
   const [descripcion, setDescripcion] = useState("");
-
-  // ✅ Buscar colaborador por correo
   const [correoColaborador, setCorreoColaborador] = useState("");
   const [colaborador, setColaborador] = useState(null);
   const [colaboradorId, setColaboradorId] = useState("");
-
-  // ✅ Archivo
   const [archivo, setArchivo] = useState(null);
   const [sending, setSending] = useState(false);
 
-  // ✅ Buscar colaborador en el backend
   async function buscarColaborador() {
     if (!correoColaborador.trim()) {
       return alert("Ingresa un correo para buscar al colaborador");
@@ -29,7 +23,7 @@ export default function StudentProposal() {
     try {
       const data = await buscarColaboradorPorCorreo(correoColaborador);
       setColaborador(data);
-      setColaboradorId(data.id); // Guardar automáticamente ID
+      setColaboradorId(data.id);
       alert(`✅ Colaborador encontrado: ${data.nombre}`);
     } catch (err) {
       alert(err.message);
@@ -38,14 +32,12 @@ export default function StudentProposal() {
     }
   }
 
-  // ✅ Enviar formulario
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!user?.id) return alert("Sesión inválida");
 
     if (!titulo.trim()) return alert("Ingresa el nombre de la propuesta");
 
-    // Validación archivo
     if (archivo) {
       const okTypes = [
         "application/pdf",
@@ -57,7 +49,6 @@ export default function StudentProposal() {
       }
     }
 
-    // ✅ FormData para archivos
     const fd = new FormData();
     fd.append("titulo", titulo);
     fd.append("programa", programa);
@@ -74,7 +65,6 @@ export default function StudentProposal() {
       await submitProposal(fd);
       alert("✅ Propuesta enviada");
 
-      // limpiar formulario
       setTitulo("");
       setPrograma("Ingeniería de Sistemas");
       setOpcion("monografia");
@@ -98,7 +88,6 @@ export default function StudentProposal() {
       </header>
 
       <form className={styles.form} onSubmit={onSubmit}>
-        {/* Datos generales */}
         <section className={styles.section}>
           <h2>Datos del proyecto</h2>
 
@@ -154,7 +143,6 @@ export default function StudentProposal() {
           </div>
         </section>
 
-        {/* Colaborador */}
         <section className={styles.section}>
           <h2>Integrantes</h2>
 
@@ -180,15 +168,13 @@ export default function StudentProposal() {
             </div>
           </div>
 
-          {/* Resultado */}
           {colaborador && (
             <div className={styles.colaboradorBox}>
-              ✅ <b>{colaborador.nombre}</b> ({colaborador.correo})
+              <b>{colaborador.nombre}</b> ({colaborador.correo})
             </div>
           )}
         </section>
 
-        {/* Archivo */}
         <section className={styles.section}>
           <h2>Adjuntar documento</h2>
           <div className={styles.fileInput}>
@@ -201,7 +187,6 @@ export default function StudentProposal() {
           </div>
         </section>
 
-        {/* Botones */}
         <div className={styles.actions}>
           <button type="button" className={styles.button} disabled={sending}>
             Guardar borrador

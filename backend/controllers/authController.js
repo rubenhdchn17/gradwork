@@ -47,7 +47,7 @@ export function register(req, res) {
         });
       });
     } catch (error) {
-      console.error("❌ Error al registrar:", error);
+      console.error("Error al registrar:", error);
       res.writeHead(400, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Datos inválidos." }));
     }

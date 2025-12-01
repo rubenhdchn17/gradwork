@@ -13,7 +13,7 @@ export default function Register() {
     e.preventDefault();
 
     if (contrasena !== confirmarContrasena) {
-      alert("❌ Las contraseñas no coinciden");
+      alert("Las contraseñas no coinciden");
       return;
     }
 

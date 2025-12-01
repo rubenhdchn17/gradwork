@@ -1,0 +1,128 @@
+:root {
+  --red-primary: #E2001A;
+  --red-dark: #B80015;
+  --accent-gold: #F5C518;
+  --gray-light: #F3F4F6;
+  --gray-medium: #D1D5DB;
+  --gray-dark: #111827;
+  --text-main: #1F2937;
+  --text-secondary: #4B5563;
+  --white: #FFFFFF;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: "Inter", sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  color: var(--red-primary);
+  margin-bottom: 0.4rem;
+}
+
+.header p {
+  color: var(--text-secondary);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  text-align: center;
+  border-left: 5px solid var(--red-primary);
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  color: var(--text-main);
+  margin-bottom: 0.6rem;
+}
+
+.count {
+  display: block;
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--red-primary);
+}
+
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.actionCard {
+  background: var(--white);
+  padding: 1.8rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  border: 1px solid rgba(226, 0, 26, 0.07);
+  text-align: left;
+}
+
+.actionCard h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: var(--red-primary);
+}
+
+.actionCard p {
+  color: var(--text-secondary);
+  margin-bottom: 1.3rem;
+}
+
+.buttonPrimary {
+  background: var(--red-primary);
+  color: var(--white);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.buttonPrimary:hover {
+  background: var(--red-dark);
+}
+
+.buttonSecondary {
+  background: var(--gray-dark);
+  color: var(--white);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.buttonSecondary:hover {
+  background: #000;
+}
+
+@media (max-width: 700px) {
+  .header h1 {
+    font-size: 1.7rem;
+  }
+
+  .actionCard h2 {
+    font-size: 1.2rem;
+  }
+}

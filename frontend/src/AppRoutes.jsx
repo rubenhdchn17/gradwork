@@ -16,6 +16,8 @@ import AnteprojectRegister from "./pages/coordinator/AnteprojectRegister";
 import AssignedProjects from "./pages/coordinator/AssignedProjects";
 import ProjectReview from "./pages/coordinator/ProjectReview";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdvisorReview from "./pages/advisor/AdvisorReview";
+
 
 export default function AppRoutes() {
   return (
@@ -47,6 +49,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       >
+        <Route path="revisar/:id" element={<AdvisorReview />} />
         <Route path="dashboard" element={<AdvisorDashboard />} />
         <Route path="asignar" element={<AssignAdvisor />} />
       </Route>
@@ -62,7 +65,8 @@ export default function AppRoutes() {
       >
         <Route path="dashboard" element={<EvaluatorDashboard />} />
         <Route path="proyectos" element={<EvaluatorProjects />} />
-        <Route path="evaluar" element={<EvaluatorReview />} />
+        <Route path="evaluar/:id" element={<EvaluatorReview />} />
+        <Route path="evaluacion/:id" element={<EvaluatorReview />} />
       </Route>
 
       {/* Coordinador */}
@@ -75,7 +79,7 @@ export default function AppRoutes() {
         }
       >
         <Route path="dashboard" element={<CoordinatorDashboard />} />
-        <Route path="asignar" element={<AssignAdvisor />} />
+        <Route path="asignar-asesor" element={<AssignAdvisor />} />
         <Route path="asignar-evaluador" element={<AssignEvaluator />} />
         <Route path="anteproyecto" element={<AnteprojectRegister />} />
         <Route path="proyectos" element={<AssignedProjects />} />

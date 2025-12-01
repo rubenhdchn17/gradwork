@@ -28,7 +28,7 @@ export default function Sidebar() {
   const menus = {
     coordinador: [
       { name: "Dashboard", icon: <FaHome />, path: "/coordinator/dashboard" },
-      { name: "Asignar Asesor", icon: <FaUserCheck />, path: "/coordinator/asignar" },
+      { name: "Asignar Asesor", icon: <FaUserCheck />, path: "/coordinator/asignar-asesor" },
       { name: "Asignar Evaluador", icon: <FaUsers />, path: "/coordinator/asignar-evaluador" },
       { name: "Anteproyecto", icon: <FaClipboardCheck />, path: "/coordinator/anteproyecto" },
       { name: "Proyectos", icon: <FaFolderOpen />, path: "/coordinator/proyectos" },

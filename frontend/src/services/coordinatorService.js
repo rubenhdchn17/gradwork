@@ -37,9 +37,7 @@ export async function fetchCoordinatorStats({ signal } = {}) {
 
 export async function fetchCoordinatorProjects(filters = {}, { signal } = {}) {
   const query = toQuery(filters);
-
   const res = await fetch(`/api/coordinator/projects${query}`, { signal });
-
   return handleResponse(res);
 }
 
@@ -115,16 +113,21 @@ export async function crearConvocatoria(data, { signal } = {}) {
   return handleResponse(res);
 }
 
-export async function fetchAsesores({ signal } = {}) {
-  const res = await fetch(`/api/coordinator/asesores`, { signal });
+export async function fetchAsesores(params = {}, { signal } = {}) {
+  const query = toQuery(params);
+  const res = await fetch(`/api/coordinator/asesores${query}`, { signal });
   return handleResponse(res);
 }
 
-export async function fetchProyectosSinAsesor({ signal } = {}) {
-  const res = await fetch(`/api/coordinator/proyectos-sin-asesor`, { signal });
+export async function fetchProyectosSinAsesor(params = {}, { signal } = {}) {
+  const query = toQuery(params);
+  const res = await fetch(`/api/coordinator/proyectos-sin-asesor${query}`, { signal });
   return handleResponse(res);
 }
 
+/* ============================================================
+   COORDINADOR: ASIGNAR ASESOR
+   ============================================================ */
 export async function asignarAsesor(data, { signal } = {}) {
   const res = await fetch(`/api/coordinator/asignar-asesor`, {
     method: "POST",
@@ -132,6 +135,27 @@ export async function asignarAsesor(data, { signal } = {}) {
     body: JSON.stringify(data),
     signal,
   });
+  return handleResponse(res);
+}
 
+export async function fetchEvaluadores(params = {}, { signal } = {}) {
+  const query = toQuery(params);
+  const res = await fetch(`/api/coordinator/evaluadores${query}`, { signal });
+  return handleResponse(res);
+}
+
+export async function fetchProyectosSinEvaluador(params = {}, { signal } = {}) {
+  const query = toQuery(params);
+  const res = await fetch(`/api/coordinator/proyectos-sin-evaluador${query}`, { signal });
+  return handleResponse(res);
+}
+
+export async function asignarEvaluador(data, { signal } = {}) {
+  const res = await fetch(`/api/coordinator/asignar-evaluador`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+    signal,
+  });
   return handleResponse(res);
 }

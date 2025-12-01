@@ -10,7 +10,7 @@
   --white: #FFFFFF;
 }
 
-.evaluator-projects {
+.container {
   background-color: var(--gray-light);
   border-radius: 12px;
   max-width: 950px;
@@ -21,29 +21,33 @@
   overflow: hidden;
 }
 
-.header-bar {
+.headerBar {
   background-color: var(--red-primary);
-  padding: 1.3rem;
+  padding: 1.4rem;
   text-align: center;
   color: var(--white);
 }
 
-.header-bar h2 {
+.headerBar h2 {
   font-size: 1.8rem;
   font-weight: 700;
-  letter-spacing: 0.6px;
   text-transform: uppercase;
   margin: 0;
 }
 
-.project-table {
+.subtitle {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.projectTable {
   width: 100%;
   border-collapse: collapse;
   background-color: var(--white);
 }
 
-.project-table th,
-.project-table td {
+.projectTable th,
+.projectTable td {
   padding: 14px 18px;
   text-align: left;
   border-bottom: 1px solid var(--gray-medium);
@@ -51,7 +55,7 @@
   color: var(--text-main);
 }
 
-.project-table th {
+.projectTable th {
   background-color: #fdf3f3;
   color: var(--red-primary);
   font-weight: 700;
@@ -61,18 +65,16 @@
   border-bottom: 2px solid var(--red-primary);
 }
 
-.project-table tr:hover {
+.projectTable tr:hover {
   background-color: #fff5f5;
   transition: background-color 0.2s ease;
 }
 
 .status {
-  padding: 0.3rem 0.7rem;
+  padding: 0.35rem 0.75rem;
   border-radius: 6px;
   font-weight: 600;
   font-size: 0.85rem;
-  display: inline-block;
-  text-transform: capitalize;
 }
 
 .status.pendiente {
@@ -80,51 +82,54 @@
   color: #7c5a00;
 }
 
-.status.en-revisión {
-  background-color: #dbeafe;
-  color: #1e3a8a;
-}
-
-.status.completado {
+.status.evaluado {
   background-color: #dcfce7;
   color: #14532d;
 }
 
-.btn-evaluate {
+.btnEvaluate,
+.btnHistory {
   padding: 8px 16px;
-  background-color: var(--red-primary);
-  color: var(--white);
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
   font-size: 0.9rem;
-  letter-spacing: 0.3px;
-  transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  transition: 0.25s ease;
 }
 
-.btn-evaluate:hover {
+.btnEvaluate {
+  background-color: var(--red-primary);
+  color: var(--white);
+}
+
+.btnEvaluate:hover {
   background-color: var(--red-dark);
   transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(226, 0, 26, 0.25);
 }
 
-.btn-evaluate:active {
-  transform: scale(0.97);
+.btnHistory {
+  background-color: var(--gray-dark);
+  color: var(--white);
+}
+
+.btnHistory:hover {
+  background-color: #000;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 700px) {
-  .project-table th,
-  .project-table td {
+  .projectTable th,
+  .projectTable td {
     padding: 10px 12px;
     font-size: 0.85rem;
   }
 
-  .header-bar h2 {
+  .headerBar h2 {
     font-size: 1.3rem;
   }
 
-  .evaluator-projects {
+  .container {
     margin: 2rem 1rem;
   }
 }

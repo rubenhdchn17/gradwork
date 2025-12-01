@@ -44,7 +44,6 @@ export function buscarUsuarioPorCorreo(req, res, query) {
   });
 }
 
-// Crear usuario
 export function createUsuario(req, res) {
   let body = "";
   req.on("data", (chunk) => (body += chunk.toString()));

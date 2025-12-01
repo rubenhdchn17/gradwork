@@ -2,7 +2,8 @@ import {
   getDashboardInfo,
   crearPropuesta,
   getProyectosPorEstudiante,
-  actualizarArchivo
+  actualizarArchivo,
+  getProyectoPorId
 } from "../controllers/proyectos.js";
 
 export function proyectosRouter(req, res, pathname, method) {
@@ -32,6 +33,14 @@ export function proyectosRouter(req, res, pathname, method) {
     actualizarArchivo(req, res, updMatch[1]);
     return true;
   }
+
+  const singleRegex = /^\/api\/proyectos\/(\d+)$/;
+  const singleMatch = pathname.match(singleRegex);
+  if (singleMatch && method === "GET") {
+    getProyectoPorId(req, res, singleMatch[1]);
+    return true;
+  }
+
 
   return false;
 }
